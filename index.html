@@ -161,9 +161,10 @@
 			.main {
 				background-image: url(./bgi.png);
 				background-repeat: no-repeat;
-				background-size: cover;
-				width: 320px;
-				height: 600px;
+				background-size: contain;
+				background-position: center;
+				width: 100vw;
+				height: 100vh;
 				color: aliceblue;
 				display: flex;
 				flex-direction: column;
@@ -257,13 +258,6 @@
 				width: 25px;
 				transition: opacity ease 1s;
 			}
-			/* .display-none {
-	display: none;
-}
-
-.display-flex {
-	display: flex;
-} */
 
 			.control-wrap {
 				display: flex;
@@ -492,7 +486,10 @@
 				</div>
 			</section>
 		</main>
+		<script src="https://telegram.org/js/telegram-web-app.js"></script>
 		<script type="text/javascript">
+			const tg = window.Telegram.WebApp;
+			tg.expand();
 			const langWrap = document.querySelector(".lang-wrap");
 			const minesWrap = document.querySelector(".mines-wrap");
 			const controlText = document.querySelector(".control-text");
