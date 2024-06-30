@@ -337,12 +337,13 @@
 			}
 			.btn {
 				margin-top: 25px;
+				font-family: "Roboto Mono", monospace;
 			}
 
 			.btn__big {
-				padding: 5px 40px;
+				padding: 5px 20px;
 				border-radius: 25px;
-				font-size: 35px;
+				font-size: 25px;
 				font-weight: bolder;
 			}
 			.pulse {
@@ -400,8 +401,8 @@
 					</div>
 					<div class="startDisable clickEnable" id="hidden">
 						<div class="textWrap">
-							<p class="seconds" id="seconds">60</p>
-							<span>seconds</span>
+							<p class="seconds" id="seconds">29</p>
+							<span>&nbsp; seconds</span>
 						</div>
 						<div class="loading" id="loading">
 							<div class="loading_bar" id="loading_bar"></div>
@@ -467,7 +468,7 @@
 				// Функция для обработки клика на кнопке
 				function handleClick() {
 					const number = generateRandomNumber();
-					const str = number + "X";
+					const str = number + "x";
 					document.getElementById("hidden").classList.remove("clickEnable");
 					document.getElementById("circleText").innerText = str;
 					document.getElementById("circleText").style.fontSize = 35 + "px";
