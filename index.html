@@ -14,7 +14,7 @@
 			rel="stylesheet"
 		/>
 
-		<title>MINES</title>
+		<title>CRASH</title>
 	</head>
 	<body>
 		<style>
@@ -145,17 +145,17 @@
 				background: -webkit-linear-gradient(
 					180deg,
 					rgb(18, 5, 37) 73%,
-					rgb(119, 0, 169)
+					hsl(218, 45%, 28%)
 				);
 				background: -moz-linear-gradient(
 					180deg,
 					rgb(18, 5, 37) 73%,
-					rgb(119, 0, 169)
+					hsl(218, 45%, 28%)
 				);
 				background: linear-gradient(
 					180deg,
 					rgb(18, 5, 37) 73%,
-					rgb(119, 0, 169)
+					hsl(218, 45%, 28%)
 				);
 			}
 			.main {
@@ -172,134 +172,15 @@
 				justify-content: center;
 				position: relative;
 			}
-			.lang-wrap {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				opacity: 1;
-				/* opacity: 0; */
-				transition: opacity ease 0.5s;
-				position: absolute;
-				z-index: 10;
-			}
-
-			.main__lang {
-				font-weight: 700;
-				font-size: 26px;
-			}
-
-			.btn__wrap {
-				margin-top: 10px;
-			}
-
-			.tellow__btn {
-				background: #ffb734;
-				border-radius: 5px;
-				padding: 15px 25px;
-				margin-right: 10px;
-				font-size: 14px;
-			}
-
-			.tellow__btn:last-child {
-				margin-right: 0;
-			}
-
-			.mines-wrap {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				opacity: 0;
-				/* opacity: 1; */
-				transition: opacity ease 0.5s;
-			}
 
 			.words-wrap {
 				display: flex;
 				flex-direction: row;
 				font-family: "Roboto Mono", monospace;
 				font-weight: 700;
-				font-size: 56px;
-				color: #cfbb0e;
-			}
-
-			.stars-wrap {
-				width: 200px;
-				height: 210px;
-				background: #000;
-				border-radius: 10px;
-				box-shadow: 0px 0px 25px #ffb734;
-				padding: 5px;
-			}
-
-			.star-row {
-				display: flex;
-				flex-direction: row;
-			}
-
-			.star {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: 30px;
-				height: 30px;
-				margin: 5px;
-				background-color: #2e99a9;
-				border-radius: 5px;
-				transition: background-color ease 1s;
-			}
-
-			.star-wrap {
-				display: flex;
-				flex-direction: row;
-			}
-			.star-image {
-				height: 25px;
-				width: 25px;
-				transition: opacity ease 1s;
-			}
-
-			.control-wrap {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-			}
-			.control-text {
-				margin: 10px 0;
-				font-weight: 600;
-				font-size: 23px;
-			}
-			.count-wrap {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 20px;
-			}
-			.count-text {
-				font-size: 23px;
-				margin: 0 20px;
-			}
-			.count-up,
-			.count-down {
-				background-color: azure;
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-			}
-
-			.count-image {
-				width: 20px;
-			}
-
-			.get-signal {
-				background: #0959b0;
-				font-size: 14px;
-				padding: 10px;
-				border-radius: 10px;
-				width: 90px;
-				transition: background ease 1s;
+				font-size: 88px;
+				color: #ffd000;
+				margin-bottom: 30px;
 			}
 
 			.word {
@@ -337,255 +218,278 @@
 				}
 			}
 
-			.opacity-off {
+			.circle-wrap,
+			.btn,
+			.control-wrap {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				/* position: relative; */
+			}
+			.circle-wrap {
+				margin-top: 50px;
+				margin-bottom: 25px;
+				width: 208px;
+				height: 208px;
+				background-color: #600a7a;
+				border-radius: 50%;
+				justify-content: center;
+				border: 2px solid #e6aff7;
+				position: relative;
+				z-index: 50;
+			}
+			.textWrap {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+
+			#circleText {
+				font-size: 28px;
+				color: #fff;
+				text-align: center;
+				margin-bottom: 10px;
+			}
+			#animated {
+				left: 0;
+				right: 0;
+				/* равномерное распределение отступов */
+				margin-left: auto;
+				margin-right: auto;
+				position: absolute;
+				animation-direction: alternate;
+				animation-duration: 3s;
+				animation-name: move;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+				z-index: 1;
+			}
+
+			#loading {
+				height: 10px;
+				width: 180px;
+				border-radius: 25px;
+				border: none;
+				background: #fff;
+			}
+
+			#loading_bar {
+				border-radius: 25px;
+				border: none;
+				width: 1%;
+				height: 10px;
+				background-color: #9210ba;
+			}
+			@keyframes move {
+				from {
+					left: -450px;
+				}
+				to {
+					left: 450px;
+				}
+			}
+			.startDisable {
+				opacity: 1;
+				transition: opacity 1s;
+			}
+
+			.clickEnable {
 				opacity: 0;
 			}
-
-			.opacity-on {
-				opacity: 1;
+			.btn__big {
+				background: -webkit-linear-gradient(
+					90deg,
+					rgb(96, 10, 122),
+					rgb(230, 175, 247)
+				);
+				background: -moz-linear-gradient(
+					90deg,
+					rgb(96, 10, 122),
+					rgb(230, 175, 247)
+				);
+				background: linear-gradient(
+					90deg,
+					rgb(96, 10, 122),
+					rgb(230, 175, 247)
+				);
+				-moz-box-shadow: 0 0 20px #e6aff7;
+				-webkit-box-shadow: 0 0 20px #e6aff7;
+				box-shadow: 0 0 20px #e6aff7;
+				padding: 5px 40px;
+				border-radius: 25px;
+			}
+			.btn__big__disable {
+				background: -webkit-linear-gradient(
+					90deg,
+					rgb(49, 49, 49),
+					rgb(107, 107, 107)
+				);
+				background: -moz-linear-gradient(
+					90deg,
+					rgb(49, 49, 49),
+					rgb(107, 107, 107)
+				);
+				background: linear-gradient(90deg, rgb(49, 49, 49), rgb(107, 107, 107));
+				-moz-box-shadow: 0 0 20px rgb(107, 107, 107);
+				-webkit-box-shadow: 0 0 20px rgb(107, 107, 107);
+				box-shadow: 0 0 20px rgb(107, 107, 107);
+			}
+			.btn {
+				margin-top: 25px;
 			}
 
-			.background-black {
-				background: #000;
+			.btn__big {
+				padding: 5px 40px;
+				border-radius: 25px;
+				font-size: 35px;
+				font-weight: bolder;
 			}
-			.background-blue {
-				background: #2e99a9;
+			.pulse {
+				background: #d94edb;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
 			}
-
-			.background-gray {
-				background: #393741;
+			.pulse::after {
+				animation-delay: 1.25s;
+			}
+			.pulse::before {
+				content: "";
+				position: absolute;
+				border: 2px solid #d94edb;
+				left: -20px;
+				opacity: 0;
+				right: -20px;
+				top: -20px;
+				bottom: -20px;
+				border-radius: 50%;
+				animation: pulse 1s linear infinite;
+			}
+			@keyframes pulse {
+				0% {
+					transform: scale(0.5);
+					opacity: 0;
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					transform: scale(1.2);
+					opacity: 0;
+				}
 			}
 		</style>
 		<main class="wrap">
 			<section class="main">
-				<div class="lang-wrap">
-					<p class="main__lang">CHOOSE LANGUAGE</p>
-					<div class="btn__wrap">
-						<button class="tellow__btn" type="button" id="btn_rus">RUS</button>
-						<button class="tellow__btn" type="button" id="btn_eng">ENG</button>
-					</div>
+				<div class="words-wrap">
+					<p class="word">C</p>
+					<p class="word">R</p>
+					<p class="word">A</p>
+					<p class="word">S</p>
+					<p class="word">H</p>
 				</div>
-				<div class="mines-wrap opacity-off">
-					<div class="words-wrap">
-						<p class="word">M</p>
-						<p class="word">I</p>
-						<p class="word">N</p>
-						<p class="word">E</p>
-						<p class="word">S</p>
-					</div>
-					<div class="stars-wrap">
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
+
+				<!-- <img src="./animated.png" id="animated" alt="animated" /> -->
+				<div class="pulse" id="animated"></div>
+				<div class="control-wrap">
+					<div class="circle-wrap">
+						<div class="wrapText">
+							<p id="circleText">CLICK ON <br />"GET SIGNAL"</p>
 						</div>
 					</div>
-					<div class="control-wrap">
-						<p class="control-text"></p>
-						<div class="count-wrap">
-							<button class="count-down">
-								<img src="./minus.svg" alt="minus" class="count-image" />
-							</button>
-							<p class="count-text"></p>
-							<button class="count-up">
-								<img src="./plus.svg" alt="plus" class="count-image" />
-							</button>
+					<div class="startDisable clickEnable" id="hidden">
+						<div class="textWrap">
+							<p class="seconds" id="seconds">60</p>
+							<span>seconds</span>
 						</div>
-						<button class="get-signal"></button>
+						<div class="loading" id="loading">
+							<div class="loading_bar" id="loading_bar"></div>
+						</div>
+					</div>
+					<div class="btn">
+						<button class="btn__big" id="btn__big">GET SIGNAL</button>
 					</div>
 				</div>
 			</section>
 		</main>
 		<script src="https://telegram.org/js/telegram-web-app.js"></script>
 		<script type="text/javascript">
-			const tg = window.Telegram.WebApp;
-			tg.expand();
-			const langWrap = document.querySelector(".lang-wrap");
-			const minesWrap = document.querySelector(".mines-wrap");
-			const controlText = document.querySelector(".control-text");
-			const getSignal = document.querySelector(".get-signal");
-			const countText = document.querySelector(".count-text");
+			let i = 0;
+			function move() {
+				const btn = document.getElementById("btn__big");
+				let activeBtn = true;
+				let time = 29;
+				let width = 1;
+				console.log(time, width);
+				function editText() {
+					if (i == 0) {
+						i = 1;
+						let elem = document.getElementById("loading_bar");
 
-			const btnRus = document.querySelector("#btn_rus");
-			const btnEng = document.querySelector("#btn_eng");
+						let id = setInterval(frame, 300);
 
-			const countMinus = document.querySelector(".count-down");
-			const countPlus = document.querySelector(".count-up");
+						function frame() {
+							if (width >= 100) {
+								clearInterval(id);
+								i = 0;
+							} else {
+								width++;
+								elem.style.width = width + "%";
+							}
+						}
+					}
+					const timer = setInterval(editText, 1000);
 
-			let count = 3;
-			let toggle = false;
-			let btnSignalActive = true;
-			const audio = new Audio("./audio.mp3");
-
-			function generateRandomNumbers() {
-				const randomNumbers = [];
-				while (randomNumbers.length < 5) {
-					const randomNumber = Math.floor(Math.random() * 25); // Числа от 0 до 24
-					if (!randomNumbers.includes(randomNumber)) {
-						randomNumbers.push(randomNumber);
+					function editText() {
+						if (time >= 0) {
+							document.getElementById("seconds").textContent = time;
+							time--;
+						}
+						if (time === -1) {
+							document.getElementById("seconds").textContent = 0;
+							activeBtn = true;
+							btn.classList.remove("btn__big__disable");
+							clearInterval(timer);
+						}
 					}
 				}
-				return randomNumbers;
-			}
-
-			function applyClassesWithDelay() {
-				getSignal.classList.add("background-gray");
-				btnSignalActive = false;
-				const randomNumbers = generateRandomNumbers();
-				const elementsWrap = document.querySelectorAll(".star");
-				const elementsImage = document.querySelectorAll(".star-image");
-
-				if (toggle) {
-					elementsWrap.forEach((item, index) => {
-						elementsWrap[index].classList.remove("background-black");
-						elementsImage[index].classList.remove("opacity-on");
-					});
-					toggle = false;
+				function generateRandomNumber() {
+					const min = 2;
+					const max = 13;
+					// Генерируем случайное число в диапазоне от 1 до 13 с тремя знаками после запятой
+					let randomNum = (Math.random() * (max - min) + min).toFixed(2);
+					// Приводим число к формату 1.11X (заменяем последнюю цифру на случайную цифру)
+					randomNum = randomNum.slice(0, -1) + Math.floor(Math.random() * 10);
+					return randomNum;
 				}
 
-				randomNumbers.forEach((num, index) => {
-					if (num < elementsWrap.length) {
-						setTimeout(() => {
-							elementsWrap[num].classList.add("background-black");
-							elementsImage[num].classList.add("opacity-on");
-							audio.play();
-						}, index * 1300);
-					}
-					setTimeout(() => {
-						toggle = true;
-						getSignal.classList.remove("background-gray");
-						btnSignalActive = true;
-					}, 6500);
+				// Функция для обработки клика на кнопке
+				function handleClick() {
+					const number = generateRandomNumber();
+					const str = number + "X";
+					document.getElementById("hidden").classList.remove("clickEnable");
+					document.getElementById("circleText").innerText = str;
+					document.getElementById("circleText").style.fontSize = 35 + "px";
+					document.getElementById("seconds").textContent = 29;
+					document.getElementById("loading_bar").style.width = 1 + "%";
+					width = 1;
+					time = 29;
+					editText();
+					activeBtn = false;
+					btn.classList.add("btn__big__disable");
+				}
+
+				btn.addEventListener("click", () => {
+					activeBtn ? handleClick() : "";
 				});
+				// btn.addEventListener("click", handleClick);
 			}
-			btnRus.addEventListener("click", () => {
-				langWrap.classList.add("opacity-off");
-				controlText.textContent = "КОЛ-ВО ЛОВУШЕК";
-				getSignal.textContent = "ПОЛУЧИТЬ СИГНАЛ";
-				countText.textContent = count;
-				setTimeout(() => {
-					langWrap.classList.add("display-none");
-					minesWrap.classList.add("opacity-on");
-				}, 600);
-			});
+			move();
+			// btn__big
 
-			btnEng.addEventListener("click", () => {
-				langWrap.classList.add("opacity-off");
-				controlText.textContent = "NUMBER OF TRAPS";
-				getSignal.textContent = "GET SIGNAL";
-				countText.textContent = count;
-				setTimeout(() => {
-					langWrap.classList.add("display-none");
-					minesWrap.classList.add("opacity-on");
-				}, 600);
-			});
+			// генерация числа
 
-			countMinus.addEventListener("click", () => {
-				if (count < 2) return;
-
-				count -= 2;
-				countText.textContent = count;
-			});
-			countPlus.addEventListener("click", () => {
-				if (count > 22) return;
-
-				count += 2;
-				countText.textContent = count;
-			});
-
-			getSignal.addEventListener("click", () => {
-				btnSignalActive ? applyClassesWithDelay() : "";
-			});
+			// Добавляем обработчик события на кнопку
 		</script>
 	</body>
 </html>
