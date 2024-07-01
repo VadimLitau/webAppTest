@@ -321,6 +321,9 @@
 				align-items: center;
 				justify-content: center;
 			}
+			.generate-wrap {
+				transition: opacity ease 0.5s;
+			}
 			.circle_wrap {
 				width: 320px;
 				height: 320px;
@@ -364,7 +367,7 @@
 				justify-content: space-between;
 				position: absolute;
 				top: 0;
-				left: 50%;
+				left: 150%;
 				transform: translate(-50%, -0%);
 				width: 428px;
 				height: 60px;
@@ -393,15 +396,20 @@
 				height: 15px;
 			}
 			.border_loading {
-				width: 1%;
+				width: 100%;
 				height: 3px;
-				background-color: #50a020;
+				background-color: #78fc2d;
+			}
+			.border_loading_on {
+				left: 50%;
+				transition: left ease 0.5s;
 			}
 			.border_loading_off {
-				left: -428px;
+				left: -50%;
 				transition: left ease 0.5s;
 			}
 			#rocket {
+				transition: opacity ease 0.5s;
 				height: 220px;
 				transform: translate(-220px, 80px);
 				animation-direction: alternate;
@@ -484,8 +492,8 @@
 					</div>
 					<div class="border_loading" id="border_loading"></div>
 				</div>
-				<img src="./rocket.png" alt="rocket" id="rocket" />
-				<div class="lang-wrap opacity-off">
+				<img src="./rocket.png" alt="rocket" id="rocket" class="opacity-off" />
+				<div class="lang-wrap">
 					<p class="main__lang">CHOOSE LANGUAGE</p>
 					<div class="btn__wrap">
 						<button class="tellow__btn" type="button" id="btn_rus">RUS</button>
@@ -505,20 +513,20 @@
 				<div class="loading_side opacity-off" id="loading">
 					<div class="loading_bar" id="loading_bar"></div>
 				</div>
-				<div class="generate-wrap">
+				<div class="generate-wrap opacity-off" id="generate">
 					<div class="circle_wrap">
 						<div class="circle">
 							<div class="pulse" id="animated"></div>
 							<div>
-								<span class="circle_time">ВРЕМЯ: </span>
-								<span class="circle_time">14:47</span>
+								<span class="circle_time" id="time_text"></span>
+								<span class="circle_time" id="time"></span>
 							</div>
-							<p class="circle_cf">2.00x</p>
+							<p class="circle_cf" id="circle_cf">2.00x</p>
 						</div>
 					</div>
 					<p class="lucky_text"><span>LUCKY</span>JET</p>
 					<div class="control-wrap">
-						<button class="get-signal">Сгенерировать</button>
+						<button class="get-signal" id="get-signal"></button>
 					</div>
 				</div>
 			</section>
@@ -530,7 +538,11 @@
 			const langWrap = document.querySelector(".lang-wrap");
 			const loadingWrap = document.querySelector(".loading");
 			const loadingSideWrap = document.querySelector(".loading_side");
+			const generateWrap = document.getElementById("generate");
+			const rocketImg = document.getElementById("rocket");
 			const main = document.querySelector(".main");
+			const timeText = document.getElementById("time_text");
+			const btnText = document.getElementById("get-signal");
 
 			const btnRus = document.querySelector("#btn_rus");
 			const btnEng = document.querySelector("#btn_eng");
@@ -572,33 +584,55 @@
 					}
 				}
 			}
-
+			function generateRandomNumber() {
+				const min = 2;
+				const max = 13;
+				let randomNum = (Math.random() * (max - min) + min).toFixed(2);
+				randomNum = randomNum.slice(0, -1) + Math.floor(Math.random() * 10);
+				return randomNum;
+			}
 			function loadingPopup() {
 				let i = 1;
-				let width = 1;
+				let width = 100;
 				let elem = document.getElementById("border_loading");
 				let popup = document.getElementById("generate_head_wrap");
-
+				popup.classList.remove("border_loading_on");
+				popup.classList.remove("border_loading_off");
 				let id = setInterval(frame, 30);
 
 				function frame() {
-					if (width >= 100) {
+					popup.classList.add("border_loading_on");
+					if (width <= 1) {
 						clearInterval(id);
 						i = 0;
 						popup.classList.add("border_loading_off");
 					} else {
-						width++;
+						width--;
 						elem.style.width = width + "%";
+						popup.classList.remove("border_loading_off");
 					}
 				}
 			}
-			loadingPopup();
+
+			function getTimeClick() {
+				const Data = new Date();
+				const Hour = Data.getHours();
+				const Minutes = Data.getMinutes();
+				return `${Hour}:${Minutes}`;
+			}
+
 			btnRus.addEventListener("click", () => {
 				langWrap.classList.add("opacity-off");
 				setTimeout(() => {
 					langWrap.classList.add("display-none");
 					loadingWrap.classList.add("opacity-on");
 					loadingSideWrap.classList.add("opacity-on");
+					setTimeout(() => {
+						generateWrap.classList.add("opacity-on");
+						rocketImg.classList.add("opacity-on");
+						timeText.textContent = "ВРЕМЯ: ";
+						btnText.textContent = "Сгенерировать";
+					}, 3500);
 					startLoading();
 				}, 600);
 			});
@@ -609,15 +643,28 @@
 					langWrap.classList.add("display-none");
 					loadingWrap.classList.add("opacity-on");
 					loadingSideWrap.classList.add("opacity-on");
+					setTimeout(() => {
+						generateWrap.classList.add("opacity-on");
+						rocketImg.classList.add("opacity-on");
+						timeText.textContent = "TIME: ";
+						btnText.textContent = "Generate";
+					}, 3500);
 					startLoading();
 				}, 600);
 			});
 
 			function handleBtn() {
+				btnSignalActive = false;
 				getSignal.classList.add("gray_btn");
-				const id = setTimeout(removeClass, 15000);
+				const number = generateRandomNumber();
+				const time = getTimeClick();
+				document.getElementById("circle_cf").textContent = `${number}x`;
+				document.getElementById("time").textContent = time;
+				loadingPopup();
+				const id = setTimeout(removeClass, 10000);
 				function removeClass() {
 					getSignal.classList.remove("gray_btn");
+					btnSignalActive = true;
 				}
 			}
 			getSignal.addEventListener("click", () => {
