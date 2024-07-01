@@ -369,6 +369,7 @@
 				width: 428px;
 				height: 60px;
 				background-color: #141114;
+				z-index: 99;
 			}
 			.generate_head {
 				display: flex;
@@ -400,6 +401,72 @@
 				left: -428px;
 				transition: left ease 0.5s;
 			}
+			#rocket {
+				height: 220px;
+				transform: translate(-220px, 80px);
+				animation-direction: alternate;
+				animation-duration: 4s;
+				animation-name: rocket_move;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+			}
+			@keyframes rocket_move {
+				0% {
+					transform: translate(-200px, 80px);
+				}
+
+				100% {
+					transform: translate(200px, -120px);
+				}
+			}
+			.pulse {
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+			}
+			.pulse::after {
+				animation-delay: 1.25s;
+			}
+			.pulse::before {
+				content: "";
+				position: absolute;
+				border: 2px solid #a95aff;
+				left: 0px;
+				opacity: 0;
+				right: 0px;
+				top: 0px;
+				bottom: 0px;
+				border-radius: 50%;
+				animation: pulse 1s linear infinite;
+				box-shadow: 0 0 20px #a95aff;
+			}
+			@keyframes pulse {
+				0% {
+					transform: scale(0.7);
+					opacity: 0;
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					transform: scale(1.2);
+					opacity: 0;
+				}
+			}
+			#animated {
+				left: 0;
+				right: 0;
+				/* равномерное распределение отступов */
+				margin-left: auto;
+				margin-right: auto;
+				position: absolute;
+				animation-direction: alternate;
+				animation-duration: 2s;
+				animation-name: move;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+				z-index: 1;
+			}
 		</style>
 		<main class="wrap">
 			<section class="main main_bgc">
@@ -415,9 +482,9 @@
 							class="generate__head-img-cross"
 						/>
 					</div>
-
 					<div class="border_loading" id="border_loading"></div>
 				</div>
+				<img src="./rocket.png" alt="rocket" id="rocket" />
 				<div class="lang-wrap opacity-off">
 					<p class="main__lang">CHOOSE LANGUAGE</p>
 					<div class="btn__wrap">
@@ -441,6 +508,7 @@
 				<div class="generate-wrap">
 					<div class="circle_wrap">
 						<div class="circle">
+							<div class="pulse" id="animated"></div>
 							<div>
 								<span class="circle_time">ВРЕМЯ: </span>
 								<span class="circle_time">14:47</span>
