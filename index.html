@@ -234,6 +234,10 @@
 				left: 50%;
 				transform: translate(-50%, -50%);
 			}
+			.loading,
+			.loading_side {
+				transition: opacity ease 0.5s;
+			}
 			#outside,
 			#in,
 			#center,
@@ -300,14 +304,14 @@
 		</style>
 		<main class="wrap">
 			<section class="main">
-				<!-- <div class="lang-wrap">
+				<div class="lang-wrap">
 					<p class="main__lang">CHOOSE LANGUAGE</p>
 					<div class="btn__wrap">
 						<button class="tellow__btn" type="button" id="btn_rus">RUS</button>
 						<button class="tellow__btn" type="button" id="btn_eng">ENG</button>
 					</div>
-				</div> -->
-				<div class="loading">
+				</div>
+				<div class="loading opacity-off">
 					<div class="loading_wrap">
 						<div class="loading__image">
 							<img src="./outside.svg" alt="outside" id="outside" />
@@ -317,7 +321,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="loading_side" id="loading">
+				<div class="loading_side opacity-off" id="loading">
 					<div class="loading_bar" id="loading_bar"></div>
 				</div>
 				<div class="mines-wrap opacity-off">
@@ -334,18 +338,19 @@
 			const tg = window.Telegram.WebApp;
 			tg.expand();
 			const langWrap = document.querySelector(".lang-wrap");
-			const controlText = document.querySelector(".control-text");
-			const getSignal = document.querySelector(".get-signal");
-			const countText = document.querySelector(".count-text");
+			const loadingWrap = document.querySelector(".loading");
+			const loadingSideWrap = document.querySelector(".loading_side");
 
 			const btnRus = document.querySelector("#btn_rus");
 			const btnEng = document.querySelector("#btn_eng");
 
+			const controlText = document.querySelector(".control-text");
+			const getSignal = document.querySelector(".get-signal");
+			const countText = document.querySelector(".count-text");
+
 			let count = 3;
 			let toggle = false;
 			let btnSignalActive = true;
-			let i = 0;
-			let width = 1;
 
 			function generateRandomNumbers() {
 				const randomNumbers = [];
@@ -358,47 +363,48 @@
 				return randomNumbers;
 			}
 
-			// btnRus.addEventListener("click", () => {
-			// 	langWrap.classList.add("opacity-off");
-			// 	controlText.textContent = "КОЛ-ВО ЛОВУШЕК";
-			// 	getSignal.textContent = "ПОЛУЧИТЬ СИГНАЛ";
-			// 	countText.textContent = count;
-			// 	setTimeout(() => {
-			// 		langWrap.classList.add("display-none");
-			// 		minesWrap.classList.add("opacity-on");
-			// 	}, 600);
-			// });
-
-			// btnEng.addEventListener("click", () => {
-			// 	langWrap.classList.add("opacity-off");
-			// 	controlText.textContent = "NUMBER OF TRAPS";
-			// 	getSignal.textContent = "GET SIGNAL";
-			// 	countText.textContent = count;
-			// 	setTimeout(() => {
-			// 		langWrap.classList.add("display-none");
-			// 		minesWrap.classList.add("opacity-on");
-			// 	}, 600);
-			// });
-
-			getSignal.addEventListener("click", () => {
-				btnSignalActive ? applyClassesWithDelay() : "";
-			});
-			if (i == 0) {
-				i = 1;
+			function startLoading() {
+				let i = 1;
 				let elem = document.getElementById("loading_bar");
 
+				let width = 1;
 				let id = setInterval(frame, 30);
 
 				function frame() {
 					if (width >= 100) {
 						clearInterval(id);
 						i = 0;
+						loadingWrap.classList.remove("opacity-on");
+						loadingSideWrap.classList.remove("opacity-on");
 					} else {
 						width++;
 						elem.style.width = width + "%";
 					}
 				}
 			}
+			btnRus.addEventListener("click", () => {
+				langWrap.classList.add("opacity-off");
+				setTimeout(() => {
+					langWrap.classList.add("display-none");
+					loadingWrap.classList.add("opacity-on");
+					loadingSideWrap.classList.add("opacity-on");
+					startLoading();
+				}, 600);
+			});
+
+			btnEng.addEventListener("click", () => {
+				langWrap.classList.add("opacity-off");
+				setTimeout(() => {
+					langWrap.classList.add("display-none");
+					loadingWrap.classList.add("opacity-on");
+					loadingSideWrap.classList.add("opacity-on");
+					startLoading();
+				}, 600);
+			});
+
+			getSignal.addEventListener("click", () => {
+				btnSignalActive ? applyClassesWithDelay() : "";
+			});
 		</script>
 	</body>
 </html>
