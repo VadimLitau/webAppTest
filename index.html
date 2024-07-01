@@ -130,6 +130,12 @@
 			}
 		</style>
 		<style>
+			@font-face {
+				font-family: "Ethnocentric Rg";
+				src: url("./ethnocentric.ttf") format("truetype");
+				font-style: noraml;
+				font-weight: normal;
+			}
 			body {
 				font-family: "PT Sans", sans-serif;
 				font-weight: 400;
@@ -172,6 +178,10 @@
 				justify-content: center;
 				position: relative;
 			}
+			.main_bgc {
+				background-color: #140d4d73;
+				background-blend-mode: overlay;
+			}
 			.lang-wrap {
 				display: flex;
 				flex-direction: column;
@@ -205,11 +215,12 @@
 			}
 
 			.get-signal {
-				background: #0959b0;
-				font-size: 14px;
-				padding: 10px;
-				border-radius: 10px;
-				width: 90px;
+				background: transparent;
+				font-size: 25px;
+				font-weight: 600;
+				padding: 20px 30px;
+				border: 3px solid #fff;
+				border-radius: 40px;
 				transition: background ease 1s;
 			}
 
@@ -241,7 +252,8 @@
 			#outside,
 			#in,
 			#center,
-			#fire {
+			#fire,
+			.generate-wrap {
 				position: absolute;
 				top: 50%;
 				left: 50%;
@@ -301,10 +313,111 @@
 				height: 20px;
 				background-color: #fff;
 			}
+			.generate-wrap,
+			.circle_wrap,
+			.circle {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			.circle_wrap {
+				width: 320px;
+				height: 320px;
+				border-radius: 50%;
+				border: 1px white dashed;
+			}
+			.circle {
+				width: 250px;
+				height: 250px;
+				border-radius: 50%;
+				color: #fff;
+				background-color: #000;
+				border: 10px solid #a95aff;
+			}
+			.circle_time {
+				font-size: 30px;
+				font-weight: 700;
+			}
+			.circle_cf {
+				font-size: 45px;
+				font-weight: 700;
+				padding-top: 5px;
+				padding-bottom: 10px;
+				color: #50a020;
+			}
+			.lucky_text {
+				font-family: "Ethnocentric Rg";
+				font-size: 35px;
+				margin: 50px 0 80px 0;
+			}
+			.lucky_text span {
+				color: #954ef5;
+			}
+			.gray_btn {
+				background-color: #8b8b8b;
+				border: none;
+			}
+			.generate_head_wrap {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 428px;
+				height: 8%;
+				background-color: #141114;
+			}
+			.generate_head {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				padding: 0 5%;
+				margin-top: 10px;
+			}
+			.generate_head-text {
+				margin-left: 10px;
+			}
+			.generate_head div {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+			.generate__head-img-cross {
+				padding-top: 5px;
+				width: 35px;
+				height: 35px;
+				margin-left: 100px;
+			}
+			.border_loading {
+				width: 1%;
+				height: 3px;
+				background-color: #50a020;
+			}
+			.border_loading_off {
+				left: -428px;
+				transition: left ease 0.5s;
+			}
 		</style>
 		<main class="wrap">
-			<section class="main">
-				<div class="lang-wrap">
+			<section class="main main_bgc">
+				<div class="generate_head_wrap" id="generate_head_wrap">
+					<div class="generate_head">
+						<div>
+							<img src="./done.svg" alt="done" class="generate__head-img" />
+							<p class="generate_head-text">Сигнал успешно получен!</p>
+						</div>
+						<img
+							src="./cross.svg"
+							alt="cross"
+							class="generate__head-img-cross"
+						/>
+					</div>
+
+					<div class="border_loading" id="border_loading"></div>
+				</div>
+				<div class="lang-wrap opacity-off">
 					<p class="main__lang">CHOOSE LANGUAGE</p>
 					<div class="btn__wrap">
 						<button class="tellow__btn" type="button" id="btn_rus">RUS</button>
@@ -324,11 +437,19 @@
 				<div class="loading_side opacity-off" id="loading">
 					<div class="loading_bar" id="loading_bar"></div>
 				</div>
-				<div class="mines-wrap opacity-off">
+				<div class="generate-wrap">
+					<div class="circle_wrap">
+						<div class="circle">
+							<div>
+								<span class="circle_time">ВРЕМЯ: </span>
+								<span class="circle_time">14:47</span>
+							</div>
+							<p class="circle_cf">2.00x</p>
+						</div>
+					</div>
+					<p class="lucky_text"><span>LUCKY</span>JET</p>
 					<div class="control-wrap">
-						<p class="control-text"></p>
-
-						<button class="get-signal"></button>
+						<button class="get-signal">Сгенерировать</button>
 					</div>
 				</div>
 			</section>
@@ -340,13 +461,12 @@
 			const langWrap = document.querySelector(".lang-wrap");
 			const loadingWrap = document.querySelector(".loading");
 			const loadingSideWrap = document.querySelector(".loading_side");
+			const main = document.querySelector(".main");
 
 			const btnRus = document.querySelector("#btn_rus");
 			const btnEng = document.querySelector("#btn_eng");
 
-			const controlText = document.querySelector(".control-text");
 			const getSignal = document.querySelector(".get-signal");
-			const countText = document.querySelector(".count-text");
 
 			let count = 3;
 			let toggle = false;
@@ -365,9 +485,9 @@
 
 			function startLoading() {
 				let i = 1;
+				let width = 1;
 				let elem = document.getElementById("loading_bar");
 
-				let width = 1;
 				let id = setInterval(frame, 30);
 
 				function frame() {
@@ -376,12 +496,34 @@
 						i = 0;
 						loadingWrap.classList.remove("opacity-on");
 						loadingSideWrap.classList.remove("opacity-on");
+						main.classList.add("main_bgc");
 					} else {
 						width++;
 						elem.style.width = width + "%";
 					}
 				}
 			}
+
+			function loadingPopup() {
+				let i = 1;
+				let width = 1;
+				let elem = document.getElementById("border_loading");
+				let popup = document.getElementById("generate_head_wrap");
+
+				let id = setInterval(frame, 30);
+
+				function frame() {
+					if (width >= 100) {
+						clearInterval(id);
+						i = 0;
+						popup.classList.add("border_loading_off");
+					} else {
+						width++;
+						elem.style.width = width + "%";
+					}
+				}
+			}
+			loadingPopup();
 			btnRus.addEventListener("click", () => {
 				langWrap.classList.add("opacity-off");
 				setTimeout(() => {
@@ -402,8 +544,15 @@
 				}, 600);
 			});
 
+			function handleBtn() {
+				getSignal.classList.add("gray_btn");
+				const id = setTimeout(removeClass, 15000);
+				function removeClass() {
+					getSignal.classList.remove("gray_btn");
+				}
+			}
 			getSignal.addEventListener("click", () => {
-				btnSignalActive ? applyClassesWithDelay() : "";
+				btnSignalActive ? handleBtn() : "";
 			});
 		</script>
 	</body>
