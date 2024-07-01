@@ -204,95 +204,6 @@
 				margin-right: 0;
 			}
 
-			.mines-wrap {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				opacity: 0;
-				/* opacity: 1; */
-				transition: opacity ease 0.5s;
-			}
-
-			.words-wrap {
-				display: flex;
-				flex-direction: row;
-				font-family: "Roboto Mono", monospace;
-				font-weight: 700;
-				font-size: 56px;
-				color: #cfbb0e;
-			}
-
-			.stars-wrap {
-				width: 200px;
-				height: 210px;
-				background: #000;
-				border-radius: 10px;
-				box-shadow: 0px 0px 25px #ffb734;
-				padding: 5px;
-			}
-
-			.star-row {
-				display: flex;
-				flex-direction: row;
-			}
-
-			.star {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: 30px;
-				height: 30px;
-				margin: 5px;
-				background-color: #2e99a9;
-				border-radius: 5px;
-				transition: background-color ease 1s;
-			}
-
-			.star-wrap {
-				display: flex;
-				flex-direction: row;
-			}
-			.star-image {
-				height: 25px;
-				width: 25px;
-				transition: opacity ease 1s;
-			}
-
-			.control-wrap {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-			}
-			.control-text {
-				margin: 10px 0;
-				font-weight: 600;
-				font-size: 23px;
-			}
-			.count-wrap {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 20px;
-			}
-			.count-text {
-				font-size: 23px;
-				margin: 0 20px;
-			}
-			.count-up,
-			.count-down {
-				background-color: azure;
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-			}
-
-			.count-image {
-				width: 20px;
-			}
-
 			.get-signal {
 				background: #0959b0;
 				font-size: 14px;
@@ -300,41 +211,6 @@
 				border-radius: 10px;
 				width: 90px;
 				transition: background ease 1s;
-			}
-
-			.word {
-				display: inline-block;
-				animation: wave 1.5s infinite;
-			}
-
-			.word:nth-child(1) {
-				animation-delay: 0s;
-			}
-
-			.word:nth-child(2) {
-				animation-delay: 0.1s;
-			}
-
-			.word:nth-child(3) {
-				animation-delay: 0.2s;
-			}
-
-			.word:nth-child(4) {
-				animation-delay: 0.3s;
-			}
-
-			.word:nth-child(5) {
-				animation-delay: 0.4s;
-			}
-
-			@keyframes wave {
-				0%,
-				100% {
-					transform: translateY(0);
-				}
-				50% {
-					transform: translateY(-20px);
-				}
 			}
 
 			.opacity-off {
@@ -345,142 +221,108 @@
 				opacity: 1;
 			}
 
-			.background-black {
-				background: #000;
+			.loading {
+				width: 10%;
+				height: 40%;
+				position: relative;
 			}
-			.background-blue {
-				background: #2e99a9;
+			.loading_wrap {
+				width: 200px;
+				height: 200px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			#outside,
+			#in,
+			#center,
+			#fire {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			#outside {
+				animation: 5s mercury infinite linear;
+			}
+			#center {
+				top: 90%;
+				left: 85%;
+			}
+			#in {
+				top: 54%;
+				left: 52%;
+				animation: 2s mercury infinite linear;
+			}
+			#fire {
+				top: 108%;
+				left: 85.5%;
+				animation-direction: alternate;
+				animation-duration: 1s;
+				animation-name: moves;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+			}
+			@keyframes mercury {
+				from {
+					transform: rotate(0);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			@keyframes moves {
+				from {
+					top: 112%;
+				}
+				to {
+					top: 108%;
+				}
 			}
 
-			.background-gray {
-				background: #393741;
+			#loading {
+				margin-top: -12%;
+				height: 20px;
+				width: 30%;
+				border-radius: 25px;
+				border: none;
+				background: #913cf1;
+			}
+
+			#loading_bar {
+				border-radius: 25px;
+				border: none;
+				width: 1%;
+				height: 20px;
+				background-color: #fff;
 			}
 		</style>
 		<main class="wrap">
 			<section class="main">
-				<div class="lang-wrap">
+				<!-- <div class="lang-wrap">
 					<p class="main__lang">CHOOSE LANGUAGE</p>
 					<div class="btn__wrap">
 						<button class="tellow__btn" type="button" id="btn_rus">RUS</button>
 						<button class="tellow__btn" type="button" id="btn_eng">ENG</button>
 					</div>
+				</div> -->
+				<div class="loading">
+					<div class="loading_wrap">
+						<div class="loading__image">
+							<img src="./outside.svg" alt="outside" id="outside" />
+							<img src="./in.svg" alt="in" id="in" />
+							<img src="./center.svg" alt="center" id="center" />
+							<img src="./fire.svg" alt="fire" id="fire" />
+						</div>
+					</div>
+				</div>
+				<div class="loading_side" id="loading">
+					<div class="loading_bar" id="loading_bar"></div>
 				</div>
 				<div class="mines-wrap opacity-off">
-					<div class="words-wrap">
-						<p class="word">M</p>
-						<p class="word">I</p>
-						<p class="word">N</p>
-						<p class="word">E</p>
-						<p class="word">S</p>
-					</div>
-					<div class="stars-wrap">
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-						<div class="stars-row">
-							<div class="star-wrap">
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-								<div class="star">
-									<img src="./star.svg" alt="" class="star-image opacity-off" />
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="control-wrap">
 						<p class="control-text"></p>
-						<div class="count-wrap">
-							<button class="count-down">
-								<img src="./minus.svg" alt="minus" class="count-image" />
-							</button>
-							<p class="count-text"></p>
-							<button class="count-up">
-								<img src="./plus.svg" alt="plus" class="count-image" />
-							</button>
-						</div>
+
 						<button class="get-signal"></button>
 					</div>
 				</div>
@@ -491,7 +333,6 @@
 			const tg = window.Telegram.WebApp;
 			tg.expand();
 			const langWrap = document.querySelector(".lang-wrap");
-			const minesWrap = document.querySelector(".mines-wrap");
 			const controlText = document.querySelector(".control-text");
 			const getSignal = document.querySelector(".get-signal");
 			const countText = document.querySelector(".count-text");
@@ -499,13 +340,11 @@
 			const btnRus = document.querySelector("#btn_rus");
 			const btnEng = document.querySelector("#btn_eng");
 
-			const countMinus = document.querySelector(".count-down");
-			const countPlus = document.querySelector(".count-up");
-
 			let count = 3;
 			let toggle = false;
 			let btnSignalActive = true;
-			const audio = new Audio("./audio.mp3");
+			let i = 1;
+			let width = 1;
 
 			function generateRandomNumbers() {
 				const randomNumbers = [];
@@ -518,74 +357,47 @@
 				return randomNumbers;
 			}
 
-			function applyClassesWithDelay() {
-				getSignal.classList.add("background-gray");
-				btnSignalActive = false;
-				const randomNumbers = generateRandomNumbers();
-				const elementsWrap = document.querySelectorAll(".star");
-				const elementsImage = document.querySelectorAll(".star-image");
+			// btnRus.addEventListener("click", () => {
+			// 	langWrap.classList.add("opacity-off");
+			// 	controlText.textContent = "КОЛ-ВО ЛОВУШЕК";
+			// 	getSignal.textContent = "ПОЛУЧИТЬ СИГНАЛ";
+			// 	countText.textContent = count;
+			// 	setTimeout(() => {
+			// 		langWrap.classList.add("display-none");
+			// 		minesWrap.classList.add("opacity-on");
+			// 	}, 600);
+			// });
 
-				if (toggle) {
-					elementsWrap.forEach((item, index) => {
-						elementsWrap[index].classList.remove("background-black");
-						elementsImage[index].classList.remove("opacity-on");
-					});
-					toggle = false;
-				}
-
-				randomNumbers.forEach((num, index) => {
-					if (num < elementsWrap.length) {
-						setTimeout(() => {
-							elementsWrap[num].classList.add("background-black");
-							elementsImage[num].classList.add("opacity-on");
-							audio.play();
-						}, index * 1300);
-					}
-					setTimeout(() => {
-						toggle = true;
-						getSignal.classList.remove("background-gray");
-						btnSignalActive = true;
-					}, 6500);
-				});
-			}
-			btnRus.addEventListener("click", () => {
-				langWrap.classList.add("opacity-off");
-				controlText.textContent = "КОЛ-ВО ЛОВУШЕК";
-				getSignal.textContent = "ПОЛУЧИТЬ СИГНАЛ";
-				countText.textContent = count;
-				setTimeout(() => {
-					langWrap.classList.add("display-none");
-					minesWrap.classList.add("opacity-on");
-				}, 600);
-			});
-
-			btnEng.addEventListener("click", () => {
-				langWrap.classList.add("opacity-off");
-				controlText.textContent = "NUMBER OF TRAPS";
-				getSignal.textContent = "GET SIGNAL";
-				countText.textContent = count;
-				setTimeout(() => {
-					langWrap.classList.add("display-none");
-					minesWrap.classList.add("opacity-on");
-				}, 600);
-			});
-
-			countMinus.addEventListener("click", () => {
-				if (count < 2) return;
-
-				count -= 2;
-				countText.textContent = count;
-			});
-			countPlus.addEventListener("click", () => {
-				if (count > 22) return;
-
-				count += 2;
-				countText.textContent = count;
-			});
+			// btnEng.addEventListener("click", () => {
+			// 	langWrap.classList.add("opacity-off");
+			// 	controlText.textContent = "NUMBER OF TRAPS";
+			// 	getSignal.textContent = "GET SIGNAL";
+			// 	countText.textContent = count;
+			// 	setTimeout(() => {
+			// 		langWrap.classList.add("display-none");
+			// 		minesWrap.classList.add("opacity-on");
+			// 	}, 600);
+			// });
 
 			getSignal.addEventListener("click", () => {
 				btnSignalActive ? applyClassesWithDelay() : "";
 			});
+			if (i == 0) {
+				i = 1;
+				let elem = document.getElementById("loading_bar");
+
+				let id = setInterval(frame, 30);
+
+				function frame() {
+					if (width >= 100) {
+						clearInterval(id);
+						i = 0;
+					} else {
+						width++;
+						elem.style.width = width + "%";
+					}
+				}
+			}
 		</script>
 	</body>
 </html>
