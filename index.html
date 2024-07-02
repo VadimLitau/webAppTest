@@ -163,6 +163,7 @@
 					rgb(18, 5, 37) 73%,
 					rgb(119, 0, 169)
 				);
+				overflow: hidden;
 			}
 			.main {
 				background-image: url(./bgi.png);
@@ -420,11 +421,11 @@
 			}
 			@keyframes rocket_move {
 				0% {
-					transform: translate(-200px, 80px);
+					transform: translate(-180px, 80px);
 				}
 
 				100% {
-					transform: translate(200px, -120px);
+					transform: translate(180px, -80px);
 				}
 			}
 			.pulse {
@@ -464,7 +465,6 @@
 			#animated {
 				left: 0;
 				right: 0;
-				/* равномерное распределение отступов */
 				margin-left: auto;
 				margin-right: auto;
 				position: absolute;
