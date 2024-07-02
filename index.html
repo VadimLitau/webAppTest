@@ -483,7 +483,7 @@
 					<div class="generate_head">
 						<div>
 							<img src="./done.svg" alt="done" class="generate__head-img" />
-							<p class="generate_head-text">Сигнал успешно получен!</p>
+							<p class="generate_head-text" id="generate_head-text"></p>
 						</div>
 						<img
 							src="./cross.svg"
@@ -633,6 +633,8 @@
 						rocketImg.classList.add("opacity-on");
 						timeText.textContent = "ВРЕМЯ: ";
 						btnText.textContent = "Сгенерировать";
+						document.getElementById("generate_head-text").textContent =
+							"Сигнал успешно получен!";
 					}, 3500);
 					startLoading();
 				}, 600);
@@ -649,6 +651,8 @@
 						rocketImg.classList.add("opacity-on");
 						timeText.textContent = "TIME: ";
 						btnText.textContent = "Generate";
+						document.getElementById("generate_head-text").textContent =
+							"Signal received successfully!";
 					}, 3500);
 					startLoading();
 				}, 600);
@@ -661,6 +665,7 @@
 				const time = getTimeClick();
 				document.getElementById("circle_cf").textContent = `${number}x`;
 				document.getElementById("time").textContent = time;
+
 				loadingPopup();
 				const id = setTimeout(removeClass, 10000);
 				function removeClass() {
